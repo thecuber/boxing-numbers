@@ -121,7 +121,10 @@ function loadImage(event: Event) {
 }
 
 function exportData() {
-  const text = boxes.map((arr) => arr.join('\t')).join('\n')
+  const text = boxes
+    .sort((v, w) => v[4] - w[4])
+    .map((arr) => arr[4] + ';' + arr.filter((_, i) => i != 4).join(','))
+    .join('\n')
   const filename = `${fileName}.boxes.csv`
 
   const blob = new Blob([text], { type: 'text/plain' })
